@@ -1,58 +1,17 @@
-Challenge Exercise: Exponential Chaos
-=====================================
-
-_written by: Shane Emmons_
-
-My wife and I play a lot of board games. After getting beat, time and time
-again, I decided it was time to find some games where we could work together.
-After experimenting with a few, we quickly found our two favourites: Pandemic
-and Forbidden Island. But now that we've played them so much, we're looking for
-more. That's where you come in. 
-
-During this assignment, you are going to create
-your own cooperative board game using similar mechanics to those in Pandemic
-and Forbidden Island. You should attempt to model the game and let a single
-player play a few turns via the console. You don't need fancy graphics or
-visual design.
-
-## Examples of chaotic cooperative games with exponential elements
-
-Below are some links to videos and/or rules for several games that you can draw
-inspiration from.
-
-Pandemic:
-
-- http://www.youtube.com/watch?v=5JxMh1FP4b0
-- http://www.zmangames.com/boardgames/pandemic.htm
-- http://www.youtube.com/watch?v=6vaJhiht8NA&feature=fvst
-
-Forbidden Island:
-
-- http://www.youtube.com/watch?v=aYVOTPsWeN4
-
-Ghost Stories: 
-
-- http://boardgamegeek.com/boardgame/37046/ghost-stories
-
-Red November: 
-
-- http://boardgamegeek.com/boardgame/36946/red-november
-
-## Exercise Summary
-
-- Design and model a game with the following features:
-  - A map which can be represented as a graph structure
-  - Rules that result in exponentially increasing danger as the game progresses
-  - Resources which players must collect repeatedly in sets to win the game
-  - Rules that create tension between slowing down immediate danger and
-    collecting all the needed resources
-- Create your own unique theme, don't copy the scenarios from the example games
-- Implement at least a single player mode which demonstrates the game setup and the
-  different actions that can take place on a turn.
-
 # Blood Chalice
 
-You and your friends are vampires in the same coven. There are vampire hunters wanting to kill you all, humans that you need to eat and a horde of zombies spreading chaos. Oh, and you need to fill a chalice with blood too :)
+You and your friends are powerful vampires, masters of the night. 
+
+But at the light of day, you are all weak, vulnerable. Two days ago you found a old artefact that could remove the light of the sun. The vampire eternal desire. The name of this artefact is 'The Blood Chalice'.
+
+In order to fulfil the dark ritual you need to make a sacrifice of 50 blood units. The only way to adquire such amount of blood is to hunt the humans in the near city.
+
+But dangers lurks in the shadows. The order of the Holy Knights has been seen in the city. They swore to destroy evil and a big army is coming. They sent Scouts regularly. They will attack you on sight. 
+
+Zombies are coming too. And they are even worse than Knights, for they may be weaker, but they hunt humans too and if they kill them they will turn into zombies. They are a plague.
+
+In 400 turns it will be daylight. The army of knights will be in town by then and no matter where you hide you will die. You must fulfil the ritual before 400 turns.
+
 
 ## The map
               
@@ -73,56 +32,76 @@ You and your friends are vampires in the same coven. There are vampire hunters w
 	#            H            H                 	               #
 	#                 #                 #####         #      #     #              H
 	####################################################################################
-     
-## People
 
-* 1,2,3,4  are the players.  
-	* Attack: 3 dmg	
-	* Move: 5 squares/turn.
-	* Hit points: 10
-	
-* V: Knights: They will attack any zombie or vampire they see
-	* Attack: 1 dmg
-	* Move: 3 squares/turn
-	* Hit points: 5   
-	* Vision: 6 squares.                         
-	
-* H: Common humans. They are food for vampires and zombies. They provide up to 2 points of blood.
-	* Attack: 0 dmg
-	* Move: 2 squares/turn
-	* Hit points: 2
-	* Vision: 6 squares
-	
-* Z: A Zombie.  
-	* Attack: 1 dmg
-	* Move: 3 squares/turn
-	* Hit points: 2
-	* Vision: 6 squares	
-	
-* C: The Blood Chalice. If a vampire touch the Chalice he transfer to it all the blood he has collected.    
+## Gameplay
 
-## Combat
+You and your friends will be vampires. Each turn you will be able to move, fight, drink blood and transfer blood to the chalice. 
 
-Fighting happens when two rival PJ collide with each other. He who collides with the other is who makes the damage.
+You can move your PC – playable character; YOU – through the map using the arrows of keyboard. The map is tile based, so you can move x number of tiles in any direction each turn. In the case of the vampire, it's 5 tiles.
 
-PJ moves randomly until they see other PJ.
+In the map you will find NPC – non playable characters – like Peasants , Knights and Zombies. You will interact with each oen of then by moving your character to them. 
 
-## Blood
+If you collide with a Peasant you will drink one unit of his blood. Once you drink all his blood the Peasant dies. They have 3 blood points.
 
-Blood can be used to heal yourself and to fill the Blood Chalice. In order to win the game you need to fill the chalice with 50 blood points.                                                                                                   
+If you collide with a Knight or a Zombie you will deal damage to them. You receive 1 unit of blood if you kill a Knight, but 0 if you kill a zombie.
 
-In order to get the blood a vampire needs to collide with a human. Then the human will lose 1 point of life and you will either win 1 point of life if you are injured or 1 point of blood if you are not.
+If you collide with the Blood Chalice you will pour the blood you had managed to gather inside the chalice.
 
-## Objective
+All NPC move when it is their turn to move. At first they move randomly, wandering through the streets. But they can think too.  
 
-In the Coven the is a Blood Chalice. You need to fill it with 50 blood points. All blood points are transferred to the Chalice wherever a player moves to its position.
-	                                    
-In 400 turns the day light will kill you all. That is the time limit.
-	
-## Events
+If a Zombie sees a Knight, Peasant or Vampire he will chase him and attack him until he eats him. If that happens, the human will turn into a zombie. Vampires won't turn into zombies.
+
+If a Knight sees a Vampire or a Zombie he will chase him down and attack him.
+
+If a Peasant sees a Vampire or a Zombie he will run in the opposite direction.
+
+That behaviour happens only if they see. The vision is defined for each character class. For example a vision of 6 tiles means that in a 6x6 square surrounding him he can see the characters. He won't see any other characters in the map.
+
+Each character has a certain number of points of life – HP. When that number reaches to 0 they die. 
+
+Vampires regenerate +1 point of life every turn. Also if they acquire blood and they are injured that blood will instead be converted to HP.
+
+So for example if you character has 10/10 points of life and he eats an entire human he will gain 3 blood points. But if he is injured – 8/10 – he will regain 2 life points and 1 blood point.
+
+Peasants regenerate 1 point of blood every 3 turns.
+
+Humans do not regenerate life points. They can't heal combat injures in one night, obviously.
+
+Zombies do not regenerate points of life neither. What is life to them anyways? :) 
 
 Each turn an event will happen. They will mostly be bad things.
 
-* The only good vampire is a dead vampire: A new Vampire Hunter enters the game.
-* Necromancer: A new zombie enters the game.
-* Immigration: A new Human enter the game.
+* Holy Knight Scout: A new Knight enters the game at a random position.
+* Necromancer: A new zombie enters the game at a random position.
+* Immigration: A new Human enter the game at a random position.     
+
+## Characters Chart
+
+* 1,2,3,4  are the vampire players.  
+	* Attack: 3 damage	
+	* Move: 5 tiles/turn.
+	* Hit points: 10.
+        * Vision: 10 tiles.
+	
+* K: Knights: Scouts from the Order of the Holy Knights
+	* Attack: 1 damage
+	* Move: 3 tiles/turn
+	* Hit points: 5.   
+	* Vision: 6 tiles.  
+        * Blood points: 1.         # Only if you kill him                 
+	
+* H: Peasants: Common people.
+	* Attack: 0 damage.
+	* Move: 2 tiles/turn.
+	* Hit points: 2.
+	* Vision: 6 tiles.
+        * Blood points: 3.
+	
+* Z: A Zombie.  
+	* Attack: 1 damage.
+	* Move: 2 tiles/turn.
+	* Hit points: 2.
+	* Vision: 5 tiles.	
+        * Blood points: 0.
+	
+* C: The Blood Chalice. If a vampire touch the Chalice he transfer to it all the blood he has collected.
