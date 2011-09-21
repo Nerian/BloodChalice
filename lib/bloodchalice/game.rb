@@ -4,10 +4,10 @@ class BloodChalice
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})
+      generate_players(@number_of_players) 
       @map = generate_map('map1')
       @number_of_players = options[:number_of_players]
-      @turn = 1         
-      generate_players(@number_of_players)            
+      @turn = 1                          
     end
     
     def next_turn()
@@ -24,7 +24,19 @@ class BloodChalice
       puts "W   Move to the North"
       puts "S   Move to the South"
       print 'Your order: '
-      action = gets
+      action = gets    
+                       
+      case action.strip.upcase
+        when 'W'
+          @players[0].move(:north)
+        when 'D'
+          @players[0].move(:east)
+        when 'S'
+          @players[0].move(:south)
+        when 'A'
+          @players[0].move(:west)
+      end
+      
     end
     
     def end_of_game?()      
@@ -35,7 +47,7 @@ class BloodChalice
     
     def generate_players(number_of_players)
       @players = []
-      number_of_players.times { @players << Player.new }
+      #number_of_players.times { @players << Player.new }
     end                 
 
     def show_map()
@@ -46,25 +58,27 @@ class BloodChalice
     end                    
 
     def generate_map(map_name)
-      map = []
+      @map = []
       f = File.open("lib/bloodchalice/world/#{map_name}", "r") 
       y = 0
       x = 0  
       f.each_line do |line|         
-        map[y] = []
+        @map[y] = []
         line.strip.each_char do |tile|          
           case tile
-            when '1'
-              map[y].push Player.new(position: [y, x], number: tile.to_i, map: @map)
+            when '1'                                                                
+              player = Player.new(position: [y, x], number: tile.to_i, map: @map)
+              @players << player
+              @map[y].push player
             else
-              map[y].push tile
+              @map[y].push tile
           end                      
           x += 1
         end
         x = 0
         y += 1
       end
-      map
+      @map
     end
   end
 end
