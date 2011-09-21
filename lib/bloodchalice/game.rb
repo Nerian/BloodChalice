@@ -17,7 +17,7 @@ class BloodChalice
 
     def show_map
       @map.each do |line|
-        line.each { |tile| print tile }    
+        line.each { |tile| print tile.to_s }    
         puts ''
       end
     end                    
@@ -25,13 +25,21 @@ class BloodChalice
     def generate_map(map_name)
       map = []
       f = File.open("lib/bloodchalice/world/#{map_name}", "r") 
-      i = 0  
+      y = 0
+      x = 0  
       f.each_line do |line|         
-        map[i] = []
+        map[y] = []
         line.strip.each_char do |tile|          
-          map[i].push tile
-        end                
-        i += 1
+          case tile
+            when '1'
+              map[y].push Player.new(position: [y, x], number: tile.to_i)
+            else
+              map[y].push tile
+          end                      
+          x += 1
+        end
+        x = 0
+        y += 1
       end
       map
     end
