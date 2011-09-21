@@ -17,7 +17,7 @@ class BloodChalice
 
     def generate_map(map_name)
       map = []
-      f = File.open("lib/world/#{map_name}", "r") 
+      f = File.open("lib/bloodchalice/world/#{map_name}", "r") 
       i = 0  
       f.each_line do |line|         
         map[i] = []
