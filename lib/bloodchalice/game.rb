@@ -5,17 +5,40 @@ class BloodChalice
 
     def initialize(options = {})
       @map = generate_map('map1')
-      @number_of_players = options[:number_of_players]   
-      
+      @number_of_players = options[:number_of_players]
+      @turn = 1         
       generate_players(@number_of_players)            
+    end
+    
+    def next_turn()
+      system('clear')
+      show_map()
+      ask_next_action()
+      @turn += 1
+    end
+    
+    def ask_next_action()
+      puts 'What are your orders, my Liege?'      
+      puts "A   Move to the West"
+      puts "D   Move to the East"
+      puts "W   Move to the North"
+      puts "S   Move to the South"
+      print 'Your order: '
+      action = gets
+    end
+    
+    def end_of_game?()      
+      if @turn == END_OF_THE_WORLD 
+        return true
+      end
     end
     
     def generate_players(number_of_players)
       @players = []
       number_of_players.times { @players << Player.new }
-    end              
+    end                 
 
-    def show_map
+    def show_map()
       @map.each do |line|
         line.each { |tile| print tile.to_s }    
         puts ''
@@ -32,7 +55,7 @@ class BloodChalice
         line.strip.each_char do |tile|          
           case tile
             when '1'
-              map[y].push Player.new(position: [y, x], number: tile.to_i)
+              map[y].push Player.new(position: [y, x], number: tile.to_i, map: @map)
             else
               map[y].push tile
           end                      

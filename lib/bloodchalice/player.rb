@@ -1,6 +1,6 @@
 class BloodChalice
   class Player
-    attr_accessor :position, :life, :blood, :number
+    attr_accessor :position, :life, :blood, :number, :map
     MAX_LIFE = 100
     SPEED = 5
     ATTACK = 3
@@ -9,8 +9,8 @@ class BloodChalice
     def initialize(options = {})
       @position = options[:position]
       @number = options[:number]
-      puts @position
-    end                        
+      @map = options[:map]
+    end                      
     
     def to_s
       @number
