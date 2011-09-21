@@ -39,7 +39,7 @@ You and your friends will be vampires. Each turn you will be able to move, fight
 
 You can move your PC – playable character; YOU – through the map using the arrows of keyboard. The map is tile based, so you can move x number of tiles in any direction each turn. In the case of the vampire, it's 5 tiles.
 
-In the map you will find NPC – non playable characters – like Peasants , Knights and Zombies. You will interact with each oen of then by moving your character to them. 
+In the map you will find NPC – non playable characters – like Peasants , Knights and Zombies. You interact them when you collide.
 
 If you collide with a Peasant you will drink one unit of his blood. Once you drink all his blood the Peasant dies. They have 3 blood points.
 
