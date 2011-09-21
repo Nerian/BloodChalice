@@ -5,9 +5,9 @@ class BloodChalice
 
     def initialize(options = {})
       @map = generate_map('map1')
-      @number_of_players = options[:number_of_players]
-      generate_players(@number_of_players)
-      puts "There are #{@players.size} players"
+      @number_of_players = options[:number_of_players]   
+      
+      generate_players(@number_of_players)            
     end
     
     def generate_players(number_of_players)
