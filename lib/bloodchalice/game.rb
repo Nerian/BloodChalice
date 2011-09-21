@@ -1,10 +1,18 @@
 class BloodChalice
   class Game
-    attr_reader :map, :number_of_players 
+    attr_reader :map, :number_of_players, :players 
 
-    def initialize()
-      @map = generate_map('map1')      
-    end    
+    def initialize(options = {})
+      @map = generate_map('map1')
+      @number_of_players = options[:number_of_players]
+      generate_players(@number_of_players)
+      puts "There are #{@players.size} players"
+    end
+    
+    def generate_players(number_of_players)
+      @players = []
+      number_of_players.times { @players << Player.new }
+    end            
 
     def show_map
       @map.each do |line|
