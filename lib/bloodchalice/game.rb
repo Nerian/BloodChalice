@@ -1,6 +1,7 @@
 class BloodChalice
   class Game
-    attr_reader :map, :number_of_players, :players 
+    attr_accessor :map, :number_of_players, :players, :turn
+    END_OF_THE_WORLD = 400
 
     def initialize(options = {})
       @map = generate_map('map1')
@@ -12,13 +13,11 @@ class BloodChalice
     def generate_players(number_of_players)
       @players = []
       number_of_players.times { @players << Player.new }
-    end            
+    end              
 
     def show_map
       @map.each do |line|
-        line.each do |tile|
-          print tile
-        end    
+        line.each { |tile| print tile }    
         puts ''
       end
     end                    
