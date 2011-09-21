@@ -1,14 +1,17 @@
 class BloodChalice  
   def self.run
-    puts 'Welcome to Blood Chalice'  
-    game = Game.new        
+    puts 'Welcome to Blood Chalice'
+    puts "How many players are going to play?" 
+    number_of_players = gets  
+    game = Game.new              
+    game.show_map
   end
 
   class Game
+    attr_reader :map, :number_of_players 
 
     def initialize()
-      @map = generate_map('map1')
-      show_map
+      @map = generate_map('map1')      
     end    
     
     def show_map
