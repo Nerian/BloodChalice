@@ -23,8 +23,9 @@ class BloodChalice
       puts "D   Move to the East"
       puts "W   Move to the North"
       puts "S   Move to the South"
+      puts "Q   Quit"
       print 'Your order: '
-      action = gets    
+      action = STDIN.getch    
                        
       case action.strip.upcase
         when 'W'
@@ -35,6 +36,8 @@ class BloodChalice
           @players[0].move(:south)
         when 'A'
           @players[0].move(:west)
+        when 'Q'
+          exit()
       end
       
     end

@@ -1,0 +1,15 @@
+GIT
+  remote: git://github.com/nobu/io-console.git
+  revision: 1570f95622255f62d50f046582d2e1d3d994ea9f
+  specs:
+    io-console (0.2.2)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  io-console!
