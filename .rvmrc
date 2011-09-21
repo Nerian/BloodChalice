@@ -1,3 +1,0 @@
-# Generated with Simple_gemset 
-rvm gemset create s9-e2
-rvm gemset use s9-e2
