@@ -1,4 +1,7 @@
-class BloodChalice    
+class BloodChalice                                                
+  
+  ASSETS_FOLDER = Pathname.new(__FILE__).dirname + '../../' + 'assets'
+      
   class Application
     def self.run
       say('Welcome to Blood Chalice')
