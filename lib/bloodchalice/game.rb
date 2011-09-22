@@ -6,7 +6,7 @@ class BloodChalice
     def initialize(options = {})          
       @map = Map.new('map1')
       @number_of_players = options[:number_of_players]     
-      @players = @map.generate_players(@number_of_players)      
+      @players = generate_players(map)      
       @turn = 1
     end
 
@@ -18,12 +18,12 @@ class BloodChalice
     end
 
     def ask_next_action()
-      puts 'What are your orders, my Liege?'
-      puts "A   Move to the West"
-      puts "D   Move to the East"
-      puts "W   Move to the North"
-      puts "S   Move to the South"
-      puts "Q   Quit"
+      say 'What are your orders, my Liege?'
+      say "A   Move to the West"
+      say "D   Move to the East"
+      say "W   Move to the North"
+      say "S   Move to the South"
+      say "Q   Quit"
       print 'Your order: '
       action = STDIN.getch
 
@@ -56,7 +56,26 @@ class BloodChalice
 
     def show_map()
       say @map.to_s
+    end
+    
+    def active_player?(tile)
+      tile.value.to_i <= @number_of_players
     end    
+    
+    def generate_players(map)
+      players = []   
+      
+      map.map.each_with_index do |line, y|
+        line.each_with_index do |tile, x|          
+          if tile.player? && active_player?(tile)
+            players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.value)
+          elsif tile.player?
+            map[y][x] = ' '
+          end
+        end
+      end
+      players
+    end
            
   end
 end

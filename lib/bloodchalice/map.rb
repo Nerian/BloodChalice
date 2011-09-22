@@ -6,22 +6,6 @@ class BloodChalice
       @map = load_map(path)
     end
         
-    def generate_players(number_of_players)
-      @number_of_players = number_of_players
-      players = []   
-      
-      @map.each_with_index do |line, y|
-        line.each_with_index do |tile, x|          
-          if tile.player? && active_player?(tile)
-            players <<  @map[y][x] = Player.new(map: @map, position: [y, x], number: tile.value)
-          elsif tile.player?
-            @map[y][x] = ' '
-          end
-        end
-      end
-      players
-    end
-    
     def to_s
       result = ''
       @map.each do |line|            
@@ -29,6 +13,10 @@ class BloodChalice
         result += "\n"
       end            
       result
+    end
+    
+    def[](value)
+      @map[value]
     end         
     
     private
@@ -41,11 +29,7 @@ class BloodChalice
           Tile.new(tile)
         end
       end
-    end       
-        
-    def active_player?(tile)
-      tile.value.to_i <= @number_of_players
-    end 
+    end                  
     
   end
 end
