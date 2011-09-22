@@ -3,12 +3,10 @@ class BloodChalice
     attr_accessor :map, :number_of_players, :players, :turn
     END_OF_THE_WORLD = 400
 
-    def initialize(options = {})
-      @map = []
-      @players = []
-      @number_of_players = options[:number_of_players] 
-      generate_players(@number_of_players)
-      @map = generate_map('map1')
+    def initialize(options = {})          
+      @map = Map.load_map('map1')
+      @number_of_players = options[:number_of_players]     
+      @players = Map.generate_players(@number_of_players, @map)      
       @turn = 1
     end
 
@@ -45,9 +43,7 @@ class BloodChalice
     end
 
     def end_of_game?()
-      if @turn == END_OF_THE_WORLD or all_players_dead?
-        return true
-      end
+      (@turn == END_OF_THE_WORLD) or all_players_dead?
     end                                               
     
     def all_players_dead?
@@ -63,41 +59,7 @@ class BloodChalice
         line.each { |tile| print tile.to_s }
         puts ''
       end
-    end
-
-    def generate_map(map_name)
-      f = File.open("lib/bloodchalice/world/#{map_name}", "r")
-      y = 0
-      x = 0
-      f.each_line do |line|
-        @map[y] = []
-        line.strip.each_char do |tile|
-          if is_a_player?(tile)
-            if is_an_active_player?(tile)
-              number = tile.to_i
-              @players[number-1].position = [y, x]
-              @map[y][x] = @players[number-1]
-            else                             
-              @map[y][x] = ' '
-            end
-          else
-            @map[y][x] = tile
-          end
-          x += 1
-        end
-        x = 0
-        y += 1
-      end
-      @map
-    end
-          
-    def is_an_active_player?(tile)
-      tile.to_i <= @number_of_players
-    end
-    
-    def is_a_player?(tile)      
-      tile.to_i != 0
-    end
-    
+    end    
+           
   end
 end
