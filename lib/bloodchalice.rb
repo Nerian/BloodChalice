@@ -1,5 +1,6 @@
 require 'io/console'      
 require 'pathname'
+require 'highline/import'
 
 require_relative 'bloodchalice/map'                                      
 require_relative 'bloodchalice/movable'

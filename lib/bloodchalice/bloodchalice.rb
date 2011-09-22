@@ -1,9 +1,9 @@
 class BloodChalice    
   class Application
     def self.run
-      puts 'Welcome to Blood Chalice'
-      puts "How many players are going to play?"
-      number_of_players = gets.strip.to_i
+      say('Welcome to Blood Chalice')
+      number_of_players = ask("How many players are going to play?").to_i
+      
       game = Game.new(number_of_players: number_of_players)
       while not game.end_of_game?
         game.next_turn
