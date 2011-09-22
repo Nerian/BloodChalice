@@ -72,10 +72,14 @@ class BloodChalice
       f.each_line do |line|
         @map[y] = []
         line.strip.each_char do |tile|
-          if tile.to_i != 0 and tile.to_i <= @number_of_players
-            number = tile.to_i
-            @players[number-1].position = [y, x]
-            @map[y][x] = @players[number-1]
+          if is_a_player?(tile)
+            if is_an_active_player?(tile)
+              number = tile.to_i
+              @players[number-1].position = [y, x]
+              @map[y][x] = @players[number-1]
+            else                             
+              @map[y][x] = ' '
+            end
           else
             @map[y][x] = tile
           end
@@ -86,5 +90,14 @@ class BloodChalice
       end
       @map
     end
+          
+    def is_an_active_player?(tile)
+      tile.to_i <= @number_of_players
+    end
+    
+    def is_a_player?(tile)      
+      tile.to_i != 0
+    end
+    
   end
 end
