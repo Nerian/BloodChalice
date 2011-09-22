@@ -44,24 +44,27 @@ class BloodChalice
     end       
     
     def status(tile)
-      tile = tile.to_i
-      
-      if tile != 0 && tile <= @number_of_players
-        :active_player
-      elsif tile != 0      
-        :inactive_player
-      elsif tile == '#'
-        :wall
-      elsif tile == ' '
-        :empty        
-      end      
+     tile = tile.to_i
+     if player?(tile) && active_player?(tile)
+       :active_player
+     elsif player?(tile)
+       :inactive_player
+     elsif wall?(tile)
+       :wall
+     else
+       :empty
+     end
     end
+    
+    def wall?(tile)
+      tile == '#'
+    end        
     
     def active_player?(tile)
       tile.to_i <= @number_of_players
     end
     
-    def a_player?(tile)      
+    def player?(tile)      
       tile.to_i != 0
     end    
     
