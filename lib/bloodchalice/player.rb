@@ -9,7 +9,12 @@ class BloodChalice
     def initialize(options = {})
       @position = options[:position]
       @number = options[:number]
-      @map = options[:map]
+      @map = options[:map]    
+      @life = MAX_LIFE
+    end
+    
+    def dead?
+      life < 1
     end
 
     def to_s
