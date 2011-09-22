@@ -1,6 +1,9 @@
 class BloodChalice
-  class Player
+  class Player 
+    include BloodChalice::Movable
+    
     attr_accessor :position, :life, :blood, :number, :map
+    
     MAX_LIFE = 100
     SPEED = 5
     ATTACK = 3
@@ -20,24 +23,5 @@ class BloodChalice
     def to_s
       @number
     end
-
-    def move(direction)
-      case direction
-        when :north
-          @map[@position[0]][@position[1]] = ' '
-          @position[0] -= 1          
-        when :south
-          @map[@position[0]][@position[1]] = ' '
-          @position[0] += 1
-        when :east
-          @map[@position[0]][@position[1]] = ' '
-          @position[1] += 1
-        when :west
-          @map[@position[0]][@position[1]] = ' '
-          @position[1] -= 1
-      end                  
-      @map[@position[0]][@position[1]] = self
-    end
-
   end
 end
