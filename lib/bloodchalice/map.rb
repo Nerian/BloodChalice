@@ -2,20 +2,10 @@ class BloodChalice
   class Map 
     attr_accessor :map, :number_of_players    
     
-    def initialize(path = nil)
-      @map = load_map(path) unless path.nil?      
+    def initialize(path)
+      @map = load_map(path)
     end
-    
-    def load_map(path)
-      filename = BloodChalice::ASSETS_FOLDER + "world/#{path}"
-
-      map = File.readlines(filename).each.map do |line|
-        line.strip.split(//).each.map do |tile|       
-          tile
-        end
-      end
-    end  
-    
+        
     def generate_players(number_of_players)
       @number_of_players = number_of_players
       players = []   
@@ -41,7 +31,17 @@ class BloodChalice
       result
     end         
     
-    private 
+    private
+    
+    def load_map(path)
+      filename = ASSETS_FOLDER + "world/#{path}"
+
+      map = File.readlines(filename).each.map do |line|
+        line.strip.split(//).each.map do |tile|       
+          tile
+        end
+      end
+    end       
     
     def status(tile)
       tile = tile.to_i
