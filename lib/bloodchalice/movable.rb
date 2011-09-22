@@ -1,6 +1,7 @@
 class BloodChalice
   module Movable
     def move(direction)
+      @moves -= 1
       case direction
         when :north
           @map[@position[0]][@position[1]] = ' '
@@ -16,6 +17,10 @@ class BloodChalice
           @position[1] -= 1
       end                  
       @map[@position[0]][@position[1]] = self
+    end
+    
+    def moves?
+      self.moves > 0
     end
         
   end

@@ -2,7 +2,7 @@ class BloodChalice
   class Player 
     include BloodChalice::Movable
     
-    attr_accessor :position, :life, :blood, :number, :map
+    attr_accessor :position, :life, :blood, :number, :map, :moves
     
     MAX_LIFE = 100
     SPEED = 5
@@ -14,6 +14,11 @@ class BloodChalice
       @number = options[:number]
       @map = options[:map]    
       @life = MAX_LIFE
+      @moves = SPEED
+    end
+    
+    def reset_moves
+      @moves = SPEED
     end
     
     def dead?
