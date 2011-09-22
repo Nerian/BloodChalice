@@ -12,9 +12,9 @@ class BloodChalice
       
       @map.each_with_index do |line, y|
         line.each_with_index do |tile, x|          
-          if status(tile) == :active_player
-            players <<  @map[y][x] = Player.new(map: @map, position: [y, x], number: tile.to_i)
-          elsif status(tile) == :inactive_player
+          if tile.player? && active_player?(tile)
+            players <<  @map[y][x] = Player.new(map: @map, position: [y, x], number: tile.value)
+          elsif tile.player?
             @map[y][x] = ' '
           end
         end
@@ -38,35 +38,14 @@ class BloodChalice
 
       map = File.readlines(filename).each.map do |line|
         line.strip.split(//).each.map do |tile|       
-          tile
+          Tile.new(tile)
         end
       end
     end       
-    
-    def status(tile)
-     tile = tile.to_i
-     if player?(tile) && active_player?(tile)
-       :active_player
-     elsif player?(tile)
-       :inactive_player
-     elsif wall?(tile)
-       :wall
-     else
-       :empty
-     end
-    end
-    
-    def wall?(tile)
-      tile == '#'
-    end        
-    
+        
     def active_player?(tile)
-      tile.to_i <= @number_of_players
-    end
-    
-    def player?(tile)      
-      tile.to_i != 0
-    end    
+      tile.value.to_i <= @number_of_players
+    end 
     
   end
 end
