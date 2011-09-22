@@ -4,9 +4,9 @@ class BloodChalice
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})          
-      @map = Map.load_map('map1')
+      @map = Map.new('map1')
       @number_of_players = options[:number_of_players]     
-      @players = Map.generate_players(@number_of_players, @map)      
+      @players = @map.generate_players(@number_of_players)      
       @turn = 1
     end
 
@@ -55,10 +55,7 @@ class BloodChalice
     end
 
     def show_map()
-      @map.each do |line|
-        line.each { |tile| print tile.to_s }
-        puts ''
-      end
+      say @map.to_s
     end    
            
   end

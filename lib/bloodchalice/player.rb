@@ -21,7 +21,7 @@ class BloodChalice
     end
 
     def to_s
-      @number
+      @number.to_s
     end
   end
 end

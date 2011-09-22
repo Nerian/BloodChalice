@@ -1,7 +1,13 @@
 class BloodChalice
-  class Map
-    def self.load_map(path)
-      filename = Pathname.new(__FILE__).dirname + "world" + path
+  class Map 
+    attr_accessor :map, :number_of_players
+    
+    def initialize(path = nil)
+      @map = load_map(path) unless path.nil?      
+    end
+    
+    def load_map(path)
+      filename = Pathname.new(__FILE__).dirname + '..' + '..' + 'assets' + "world" + path
 
       map = File.readlines(filename).each.map do |line|
         line.strip.split(//).each.map do |tile|       
@@ -10,33 +16,52 @@ class BloodChalice
       end
     end  
     
-    def self.generate_players(number_of_players, map)
-      players = []
-      map.each_with_index do |line, y|
-        line.each_with_index do |tile, x|
-          if is_a_player?(tile)
-            if is_an_active_player?(tile, number_of_players)
-              players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.to_i)               
-            else
-              map[y][x] = ' '
-            end            
+    def generate_players(number_of_players)
+      @number_of_players = number_of_players
+      players = []   
+      
+      @map.each_with_index do |line, y|
+        line.each_with_index do |tile, x|          
+          if status(tile) == :active_player
+            players <<  @map[y][x] = Player.new(map: @map, position: [y, x], number: tile.to_i)
+          elsif status(tile) == :inactive_player
+            @map[y][x] = ' '
           end
         end
       end
       players
     end
     
-    def self.get_player(player_number, map)
-      map.each
-    end               
+    def to_s
+      result = ''
+      @map.each do |line|            
+        line.each { |tile| result += tile.to_s }
+        result += "\n"
+      end            
+      result
+    end         
     
-    private
+    private 
     
-    def self.is_an_active_player?(tile, number_of_players)
-      tile.to_i <= number_of_players
+    def status(tile)
+      tile = tile.to_i
+      
+      if tile != 0 && tile <= @number_of_players
+        :active_player
+      elsif tile != 0      
+        :inactive_player
+      elsif tile == '#'
+        :wall
+      elsif tile == ' '
+        :empty        
+      end      
     end
     
-    def self.is_a_player?(tile)      
+    def active_player?(tile)
+      tile.to_i <= @number_of_players
+    end
+    
+    def a_player?(tile)      
       tile.to_i != 0
     end    
     
