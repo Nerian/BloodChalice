@@ -33,9 +33,16 @@ class BloodChalice
       elsif tile.knight?
         fight(tile)
         return :fight
+      elsif tile.chalice?
+        pour_blood(tile)
       elsif tile.empty?
         return :move
       end
+    end
+    
+    def pour_blood(chalice)
+      chalice.blood += @blood
+      @blood = 0
     end
     
     def fight(enemy)

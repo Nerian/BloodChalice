@@ -22,6 +22,10 @@ class BloodChalice
     
     def knight?
       @value == 'K'
+    end           
+    
+    def chalice?
+      @value == 'C'
     end
   end
 

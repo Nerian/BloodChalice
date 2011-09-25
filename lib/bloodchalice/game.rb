@@ -1,6 +1,6 @@
 class BloodChalice
   class Game
-    attr_accessor :map, :number_of_players, :players, :turn
+    attr_accessor :map, :number_of_players, :players, :turn, :chalice
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})
@@ -63,6 +63,7 @@ class BloodChalice
     def show_interface(player)
       system('clear')
       say "It is the turn of Player #{player.number} and there are #{END_OF_THE_WORLD - @turn} turns until dawn."
+      say "The Blood Chalice has #{@chalice.blood} of 50 blood units"
       show_map
       say "You have #{player.moves}/#{Player::SPEED} moves left and #{player.blood} blood stored"
       say 'What are your orders, my Liege?'
@@ -82,9 +83,12 @@ class BloodChalice
           if tile.peasant?
             map.set_tile [y, x], Peasant.new(map: map, position: [y, x])
           elsif tile.zombie?
-            map.set_tile [y, x], Zombie.new(map: map, position: [y, x]) 
+            map.set_tile [y, x], Zombie.new(map: map, position: [y, x])
           elsif tile.knight?
             map.set_tile [y, x], Knight.new(map: map, position: [y, x])
+          elsif tile.chalice?
+            @chalice = Chalice.new(map: map, position: [y, x])
+            map.set_tile [y, x], @chalice
           end
         end
       end
