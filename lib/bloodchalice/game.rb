@@ -83,7 +83,7 @@ class BloodChalice
           if tile.player? && active_player?(tile)
             players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.value)
           elsif tile.player?
-            map[y][x] = Tile.new(' ')
+            map.set_tile [y, x], Tile.new(' ')
           end
         end
       end
