@@ -82,7 +82,9 @@ class BloodChalice
           if tile.peasant?
             map.set_tile [y, x], Peasant.new(map: map, position: [y, x])
           elsif tile.zombie?
-            map.set_tile [y, x], Zombie.new(map: map, position: [y, x])
+            map.set_tile [y, x], Zombie.new(map: map, position: [y, x]) 
+          elsif tile.knight?
+            map.set_tile [y, x], Knight.new(map: map, position: [y, x])
           end
         end
       end

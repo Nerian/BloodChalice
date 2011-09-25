@@ -19,6 +19,10 @@ class BloodChalice
     def zombie?
       @value == 'Z'
     end
+    
+    def knight?
+      @value == 'K'
+    end
   end
 
   class Tile

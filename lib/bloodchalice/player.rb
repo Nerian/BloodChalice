@@ -30,6 +30,9 @@ class BloodChalice
       elsif tile.zombie?
         fight(tile)
         return :fight
+      elsif tile.knight?
+        fight(tile)
+        return :fight
       elsif tile.empty?
         return :move
       end
