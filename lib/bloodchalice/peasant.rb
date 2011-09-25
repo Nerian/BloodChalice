@@ -1,5 +1,5 @@
 class BloodChalice
-  class Zombie
+  class Peasant
     include BloodChalice::Movable
     include BloodChalice::TileValues
 
@@ -7,21 +7,21 @@ class BloodChalice
 
     MAX_LIFE = 2
     SPEED = 2
-    ATTACK = 1
-    VISION = 5
-    MAXBLOOD = 0
+    ATTACK = 0
+    VISION = 6
+    MAXBLOOD = 3
 
     def initialize(options = {})
       @position = options[:position]
       @map = options[:map]
       @life = MAX_LIFE
       @blood = MAXBLOOD
-      @value = 'Z'
+      @value = 'P'
     end
 
-    def hit(damage)
-      @life -= damage
-      if @life <= 0 
+    def bited
+      @blood -= 1
+      if @blood == 0
         die()
       end
     end
@@ -33,6 +33,5 @@ class BloodChalice
     def to_s
       @value.to_s
     end
-
   end
 end

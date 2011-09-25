@@ -6,19 +6,28 @@ class BloodChalice
       case direction
         when :north          
           position = sum_positions(@position, DIRECTIONS[:north])
-          move!(position) unless reacts_to(@map.value(position)) == :stop
+          reactions(position)
         when :south                                              
           position = sum_positions(@position, DIRECTIONS[:south])
-          move!(position) unless reacts_to(@map.value(position)) == :stop
+          reactions(position)
         when :east                                               
           position = sum_positions(@position, DIRECTIONS[:east])
-          move!(position) unless reacts_to(@map.value(position)) == :stop
+          reactions(position)
         when :west                                               
           position = sum_positions(@position, DIRECTIONS[:west])
-          move!(position) unless reacts_to(@map.value(position)) == :stop
+          reactions(position)
       end                        
     end
     
+    def reactions(position)
+      case reacts_to(@map.value(position))
+        when :move
+          move!(position)
+        when :fight
+          @moves = 0
+      end      
+    end
+
     def move!(position)
       @map.set_tile(@position, Tile.new(' '))
       @position = position

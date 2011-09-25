@@ -7,6 +7,7 @@ class BloodChalice
       @map = Map.new('map1')
       @number_of_players = options[:number_of_players]
       @players = generate_players(map)
+      generate_npc(map)
       @turn = 1
     end
 
@@ -63,8 +64,8 @@ class BloodChalice
       system('clear')
       say "It is the turn of Player #{player.number} and there are #{END_OF_THE_WORLD - @turn} turns until dawn."
       show_map
-      say "You have #{player.moves}/#{Player::SPEED} moves left"
-      say 'What are your orders, my Liege?'      
+      say "You have #{player.moves}/#{Player::SPEED} moves left and #{player.blood} blood stored"
+      say 'What are your orders, my Liege?'
     end
 
     def show_map()
@@ -73,6 +74,18 @@ class BloodChalice
 
     def active_player?(tile)
       tile.value.to_i <= @number_of_players
+    end
+
+    def generate_npc(map)
+      map.map.each_with_index do |line, y|
+        line.each_with_index do |tile, x|
+          if tile.peasant?
+            map.set_tile [y, x], Peasant.new(map: map, position: [y, x])
+          elsif tile.zombie?
+            map.set_tile [y, x], Zombie.new(map: map, position: [y, x])
+          end
+        end
+      end
     end
 
     def generate_players(map)
