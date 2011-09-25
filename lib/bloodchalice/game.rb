@@ -70,7 +70,7 @@ class BloodChalice
       say "It is the turn of Player #{player.number} and there are #{END_OF_THE_WORLD - @turn} turns until dawn."
       say "The Blood Chalice has #{@chalice.blood} of 50 blood units"
       show_map
-      say "You have #{player.moves}/#{Player::SPEED} moves left and #{player.blood} blood stored"
+      say "You have #{player.moves}/#{Player::SPEED} moves left, #{player.blood} blood stored and #{player.life}/#{Player::MAX_LIFE} HP"
       say 'What are your orders, my Liege?'
     end
 

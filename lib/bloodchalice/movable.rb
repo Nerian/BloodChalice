@@ -28,6 +28,13 @@ class BloodChalice
       end      
     end
     
+    def hit(damage)
+      @life -= damage
+      if @life <= 0 
+        die()
+      end
+    end
+    
     def reset_moves
       @moves = self.speed
     end
