@@ -49,7 +49,7 @@ class BloodChalice
     end
 
     def end_of_game?()
-      (@turn == END_OF_THE_WORLD) or all_players_dead?
+      (@turn == END_OF_THE_WORLD) or all_players_dead? or @chalice.blood >= 50 
     end
 
     def all_players_dead?
