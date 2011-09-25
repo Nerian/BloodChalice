@@ -1,14 +1,15 @@
 class BloodChalice
   class Game
-    attr_accessor :map, :number_of_players, :players, :turn, :chalice
+    attr_accessor :map, :number_of_players, :players, :turn, :chalice, :non_playable_characters
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})
+      @non_playable_characters = []
       @map = Map.new('map1')
       @number_of_players = options[:number_of_players]
       @players = generate_players(map)
       generate_npc(map)
-      @turn = 1
+      @turn = 1      
     end
 
     def next_turn()
@@ -20,7 +21,11 @@ class BloodChalice
         end
         show_interface(player)
         ask "Next Player: hit enter"
-      end
+      end                 
+      
+      @non_playable_characters.each &:reset_moves
+      @non_playable_characters.each &:think      
+      
       @turn += 1
     end
 
@@ -80,12 +85,18 @@ class BloodChalice
     def generate_npc(map)
       map.map.each_with_index do |line, y|
         line.each_with_index do |tile, x|
-          if tile.peasant?
-            map.set_tile [y, x], Peasant.new(map: map, position: [y, x])
-          elsif tile.zombie?
-            map.set_tile [y, x], Zombie.new(map: map, position: [y, x])
-          elsif tile.knight?
-            map.set_tile [y, x], Knight.new(map: map, position: [y, x])
+          if tile.peasant?              
+            peasant = Peasant.new(map: map, position: [y, x])
+            @non_playable_characters << peasant
+            map.set_tile [y, x], peasant
+          elsif tile.zombie?        
+            zombie = Zombie.new(map: map, position: [y, x])
+            @non_playable_characters << zombie
+            map.set_tile [y, x], zombie
+          elsif tile.knight?        
+            knight = Knight.new(map: map, position: [y, x])
+            @non_playable_characters << knight
+            map.set_tile [y, x], knight
           elsif tile.chalice?
             @chalice = Chalice.new(map: map, position: [y, x])
             map.set_tile [y, x], @chalice

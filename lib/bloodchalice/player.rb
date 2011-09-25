@@ -3,7 +3,7 @@ class BloodChalice
     include BloodChalice::Movable
     include BloodChalice::TileValues
 
-    attr_accessor :position, :life, :blood, :number, :map, :moves, :value
+    attr_accessor :position, :life, :blood, :number, :map, :moves, :value, :speed
 
     MAX_LIFE = 100
     SPEED = 7
@@ -17,6 +17,7 @@ class BloodChalice
       @life = MAX_LIFE
       @moves = SPEED
       @blood = 0
+      @speed = SPEED
     end
 
     def reacts_to(tile)
@@ -52,10 +53,6 @@ class BloodChalice
     def bite(human)
       human.bited
       @blood += 1
-    end
-
-    def reset_moves
-      @moves = SPEED
     end
 
     def dead?

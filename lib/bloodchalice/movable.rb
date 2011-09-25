@@ -27,6 +27,10 @@ class BloodChalice
           @moves = 0
       end      
     end
+    
+    def reset_moves
+      @moves = self.speed
+    end
 
     def move!(position)
       @map.set_tile(@position, Tile.new(' '))
@@ -37,7 +41,7 @@ class BloodChalice
     
     def moves?
       self.moves > 0
-    end
+    end   
     
     private 
     

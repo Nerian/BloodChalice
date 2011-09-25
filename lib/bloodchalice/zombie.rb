@@ -2,8 +2,9 @@ class BloodChalice
   class Zombie
     include BloodChalice::Movable
     include BloodChalice::TileValues
+    include BloodChalice::ArtificialIntelligence
 
-    attr_accessor :position, :life, :blood, :map, :value
+    attr_accessor :position, :life, :blood, :map, :value, :speed
 
     MAX_LIFE = 2
     SPEED = 2
@@ -16,7 +17,8 @@ class BloodChalice
       @map = options[:map]
       @life = MAX_LIFE
       @blood = MAXBLOOD
-      @value = 'Z'
+      @value = 'Z' 
+      @speed = SPEED
     end
 
     def hit(damage)

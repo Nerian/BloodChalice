@@ -2,8 +2,9 @@ class BloodChalice
   class Knight
     include BloodChalice::Movable
     include BloodChalice::TileValues
+    include BloodChalice::ArtificialIntelligence
 
-    attr_accessor :position, :life, :blood, :map, :value
+    attr_accessor :position, :life, :blood, :map, :value, :speed
 
     MAX_LIFE = 5
     SPEED = 3
@@ -17,6 +18,7 @@ class BloodChalice
       @life = MAX_LIFE
       @blood = MAXBLOOD
       @value = 'K'
+      @speed = SPEED
     end
 
     def hit(damage)
