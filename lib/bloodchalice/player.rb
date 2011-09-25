@@ -1,8 +1,9 @@
 class BloodChalice
   class Player 
     include BloodChalice::Movable
+    include BloodChalice::TileValues
     
-    attr_accessor :position, :life, :blood, :number, :map, :moves
+    attr_accessor :position, :life, :blood, :number, :map, :moves, :value
     
     MAX_LIFE = 100
     SPEED = 5
@@ -11,10 +12,20 @@ class BloodChalice
 
     def initialize(options = {})
       @position = options[:position]
-      @number = options[:number]
+      @value = @number = options[:number]
       @map = options[:map]    
       @life = MAX_LIFE
       @moves = SPEED
+    end
+    
+    def reacts_to(tile) 
+      if tile.wall?
+        return :stop
+      elsif tile.player?
+        return :stop
+      elsif tile.empty?
+        return :move
+      end
     end
     
     def reset_moves

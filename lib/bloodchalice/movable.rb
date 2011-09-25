@@ -3,26 +3,28 @@ class BloodChalice
     DIRECTIONS = {north: [-1, 0], east: [0, 1], south: [1, 0], west: [0, -1] }
     
     def move(direction)
-      @moves -= 1
       case direction
         when :north          
-          position = sum_positions(@position, DIRECTIONS[:north])          
-          @map[@position[0]][@position[1]] = ' '
-          @position = position          
+          position = sum_positions(@position, DIRECTIONS[:north])
+          move!(position) unless reacts_to(@map.value(position)) == :stop
         when :south                                              
           position = sum_positions(@position, DIRECTIONS[:south])
-          @map[@position[0]][@position[1]] = ' '
-          @position = position
+          move!(position) unless reacts_to(@map.value(position)) == :stop
         when :east                                               
           position = sum_positions(@position, DIRECTIONS[:east])
-          @map[@position[0]][@position[1]] = ' '
-          @position = position
+          move!(position) unless reacts_to(@map.value(position)) == :stop
         when :west                                               
           position = sum_positions(@position, DIRECTIONS[:west])
-          @map[@position[0]][@position[1]] = ' '
-          @position = position
-      end                  
-      @map[@position[0]][@position[1]] = self
+          move!(position) unless reacts_to(@map.value(position)) == :stop
+      end                        
+    end
+    
+    def move!(position)
+      @map[@position[0]][@position[1]] = Tile.new(' ')
+      @position = position
+      @moves -= 1          
+      #@map[@position[0]][@position[1]] = self
+      @map.set_tile(position, self)
     end
     
     def moves?

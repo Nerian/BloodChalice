@@ -5,6 +5,14 @@ class BloodChalice
     def initialize(path)
       @map = load_map(path)
     end
+    
+    def value(position)
+      @map[position[0]][position[1]]
+    end      
+    
+    def set_tile(position, value)
+      @map[position[0]][position[1]] = value
+    end
         
     def to_s
       result = ''
