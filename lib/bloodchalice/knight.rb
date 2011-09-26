@@ -20,7 +20,7 @@ class BloodChalice
       @value = 'K'
       @speed = SPEED
     end
-    
+
     def reacts_to(tile)
       if tile.wall?
         return :stop
@@ -28,7 +28,7 @@ class BloodChalice
         return :move
       elsif tile.player?
         tile.hit(ATTACK)
-        return :fight 
+        return :fight
       elsif tile.zombie?
         tile.hit(ATTACK)
         return :fight
@@ -37,13 +37,13 @@ class BloodChalice
 
     def hit(damage)
       @life -= damage
-      if @life <= 0 
+      if @life <= 0
         die()
       end
     end
 
     def die
-      @map.set_tile @position, Tile.new(' ')
+      @map.set_tile @position, Tile.new(@position, ' ')
     end
 
     def to_s

@@ -1,6 +1,6 @@
 class BloodChalice
   class Game
-    attr_accessor :map, :number_of_players, :players, :turn, :chalice, :non_playable_characters
+    attr_accessor :map, :number_of_players, :players, :turn, :chalice, :non_playable_characters, :event_deck
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})
@@ -9,10 +9,12 @@ class BloodChalice
       @number_of_players = options[:number_of_players]
       @players = generate_players(map)
       generate_npc(map)
-      @turn = 1      
+      @turn = 1 
+      @event_deck = EventDeck.new(self)     
     end
 
     def next_turn()
+      event_deck.take_a_card
       players.each do |player|
         player.reset_moves
         while player.moves?
@@ -113,7 +115,7 @@ class BloodChalice
           if tile.player? && active_player?(tile)
             players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.value)
           elsif tile.player?
-            map.set_tile [y, x], Tile.new(' ')
+            map.set_tile [y, x], Tile.new([y, x], ' ')
           end
         end
       end

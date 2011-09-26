@@ -29,7 +29,7 @@ class BloodChalice
     end
 
     def die
-      @map.set_tile @position, Tile.new(' ')
+      @map.set_tile @position, Tile.new(@position, ' ')
     end
 
     def to_s

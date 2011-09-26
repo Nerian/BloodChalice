@@ -32,9 +32,9 @@ class BloodChalice
     def load_map(path)
       filename = ASSETS_FOLDER + "world/#{path}"
 
-      map = File.readlines(filename).each.map do |line|
-        line.strip.split(//).each.map do |tile|       
-          Tile.new(tile)
+      map = File.readlines(filename).each_with_index.map do |line, y|
+        line.strip.split(//).each_with_index.map do |tile, x|
+          Tile.new([y, x], tile)
         end
       end
     end                  

@@ -40,7 +40,7 @@ class BloodChalice
     end
 
     def move!(position)
-      @map.set_tile(@position, Tile.new(' '))
+      @map.set_tile(@position, Tile.new(@position, ' '))
       @position = position
       @moves -= 1          
       @map.set_tile(position, self)

@@ -31,11 +31,12 @@ class BloodChalice
 
   class Tile
     include BloodChalice::TileValues
-    attr_accessor :value
+    attr_accessor :value, :position
 
-    def initialize(value)
+    def initialize(position, value )
       @value = value
-    end
+      @position = position
+    end                                  
 
     def to_s
       @value.to_s

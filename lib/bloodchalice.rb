@@ -2,6 +2,7 @@ require 'io/console'
 require 'pathname'
 require 'highline/import'
 
+require_relative 'bloodchalice/event_deck'
 require_relative 'bloodchalice/tile'
 require_relative 'bloodchalice/movable'
 require_relative 'bloodchalice/ai'
