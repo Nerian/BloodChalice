@@ -1,6 +1,9 @@
 class BloodChalice
   class Game
+    include HighLine::SystemExtensions
+    
     attr_accessor :map, :number_of_players, :players, :turn, :chalice, :non_playable_characters, :event_deck
+    
     END_OF_THE_WORLD = 400
 
     def initialize(options = {})
@@ -39,9 +42,9 @@ class BloodChalice
       say "Q   Quit"
 
       print 'Your order: '
-      action = STDIN.getch
+      action = get_character.chr.upcase
 
-      case action.strip.upcase
+      case action.strip
       when 'W'
         player.move(:north)
       when 'D'
@@ -83,24 +86,28 @@ class BloodChalice
     def active_player?(tile)
       tile.value.to_i <= @number_of_players
     end
+    
+    def remove_npc(npc)
+      @non_playable_characters.delete(npc)
+    end
 
     def generate_npc(map)
       map.map.each_with_index do |line, y|
         line.each_with_index do |tile, x|
           if tile.peasant?              
-            peasant = Peasant.new(map: map, position: [y, x])
+            peasant = Peasant.new(map: map, position: [y, x], game: self)
             @non_playable_characters << peasant
             map.set_tile [y, x], peasant
           elsif tile.zombie?        
-            zombie = Zombie.new(map: map, position: [y, x])
+            zombie = Zombie.new(map: map, position: [y, x], game: self)
             @non_playable_characters << zombie
             map.set_tile [y, x], zombie
           elsif tile.knight?        
-            knight = Knight.new(map: map, position: [y, x])
+            knight = Knight.new(map: map, position: [y, x], game: self)
             @non_playable_characters << knight
             map.set_tile [y, x], knight
           elsif tile.chalice?
-            @chalice = Chalice.new(map: map, position: [y, x])
+            @chalice = Chalice.new(map: map, position: [y, x], game: self)
             map.set_tile [y, x], @chalice
           end
         end
@@ -113,7 +120,7 @@ class BloodChalice
       map.map.each_with_index do |line, y|
         line.each_with_index do |tile, x|
           if tile.player? && active_player?(tile)
-            players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.value)
+            players <<  map[y][x] = Player.new(map: map, position: [y, x], number: tile.value, game: self)
           elsif tile.player?
             map.set_tile [y, x], Tile.new([y, x], ' ')
           end

@@ -4,7 +4,7 @@ class BloodChalice
     include BloodChalice::TileValues
     include BloodChalice::ArtificialIntelligence
 
-    attr_accessor :position, :life, :blood, :map, :value, :speed
+    attr_accessor :position, :life, :blood, :map, :value, :speed, :game
 
     MAX_LIFE = 5
     SPEED = 3
@@ -15,6 +15,7 @@ class BloodChalice
     def initialize(options = {})
       @position = options[:position]
       @map = options[:map]
+      @game = options[:game]
       @life = MAX_LIFE
       @blood = MAXBLOOD
       @value = 'K'
@@ -33,17 +34,6 @@ class BloodChalice
         tile.hit(ATTACK)
         return :fight
       end
-    end
-
-    def hit(damage)
-      @life -= damage
-      if @life <= 0
-        die()
-      end
-    end
-
-    def die
-      @map.set_tile @position, Tile.new(@position, ' ')
     end
 
     def to_s

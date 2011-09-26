@@ -4,7 +4,7 @@ class BloodChalice
     include BloodChalice::TileValues
     include BloodChalice::ArtificialIntelligence
 
-    attr_accessor :position, :life, :blood, :map, :value, :speed
+    attr_accessor :position, :life, :blood, :map, :value, :speed, :game
 
     MAX_LIFE = 2
     SPEED = 2
@@ -15,21 +15,11 @@ class BloodChalice
     def initialize(options = {})
       @position = options[:position]
       @map = options[:map]
+      @game = options[:game]
       @life = MAX_LIFE
       @blood = MAXBLOOD
       @value = 'P'
       @speed = SPEED
-    end
-
-    def bited
-      @blood -= 1
-      if @blood == 0
-        die()
-      end
-    end
-
-    def die
-      @map.set_tile @position, Tile.new(@position, ' ')
     end
 
     def to_s

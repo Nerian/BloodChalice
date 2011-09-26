@@ -23,15 +23,15 @@ class BloodChalice
         when :new_zombie
           puts "New zombie!"
           tile = empty_tiles.sample
-          @map.set_tile(tile.position, Zombie.new(map: @map, position: tile.position))
+          @map.set_tile(tile.position, Zombie.new(map: @map, position: tile.position, game: @game))
         when :new_knight
           puts "New Knight!"
           tile = empty_tiles.sample          
-          @map.set_tile(tile.position, Knight.new(map: @map, position: tile.position))
+          @map.set_tile(tile.position, Knight.new(map: @map, position: tile.position, game: @game))
         when :new_peasant
           puts "New Peasant!"                                                  
           tile = empty_tiles.sample          
-          @map.set_tile(tile.position, Peasant.new(map: @map, position: tile.position))
+          @map.set_tile(tile.position, Peasant.new(map: @map, position: tile.position, game: @game))
       end
     end
   end

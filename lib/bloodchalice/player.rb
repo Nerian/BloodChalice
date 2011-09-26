@@ -3,7 +3,7 @@ class BloodChalice
     include BloodChalice::Movable
     include BloodChalice::TileValues
 
-    attr_accessor :position, :life, :blood, :number, :map, :moves, :value, :speed
+    attr_accessor :position, :life, :blood, :number, :map, :moves, :value, :speed, :game
 
     MAX_LIFE = 100
     SPEED = 7
@@ -14,6 +14,7 @@ class BloodChalice
       @position = options[:position]
       @value = @number = options[:number]
       @map = options[:map]
+      @game = options[:game]
       @life = MAX_LIFE
       @moves = SPEED
       @blood = 0
