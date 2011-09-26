@@ -5,19 +5,15 @@ class BloodChalice
     def move(direction)
       case direction
         when :north          
-          position = sum_positions(@position, DIRECTIONS[:north])
-          reactions(position)
+          reactions sum_positions(@position, DIRECTIONS[:north])
         when :south                                              
-          position = sum_positions(@position, DIRECTIONS[:south])
-          reactions(position)
+          reactions sum_positions(@position, DIRECTIONS[:south])
         when :east                                               
-          position = sum_positions(@position, DIRECTIONS[:east])
-          reactions(position)
+          reactions sum_positions(@position, DIRECTIONS[:east])
         when :west                                               
-          position = sum_positions(@position, DIRECTIONS[:west])
-          reactions(position)
+          reactions sum_positions(@position, DIRECTIONS[:west])
       end                        
-    end
+    end             
     
     def reactions(position)
       case reacts_to(@map.value(position))
