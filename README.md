@@ -12,6 +12,11 @@ Zombies are coming too. And they are even worse than Knights, for they may be we
 
 In 400 turns it will be daylight. The army of knights will be in town by then and no matter where you hide you will die. You must fulfil the ritual before 400 turns.
 
+Install it!
+
+``` ruby
+gem install bloodchalice
+```
 
 ## The map
 
